@@ -1,0 +1,25 @@
+class Multitone:
+    _instances = {}
+    _max_instances = 2
+
+    def __new__(cls):
+        if len(cls._instances) < cls._max_instances:
+            identifier = len(cls._instances) + 1
+            obj = super().__new__(cls)
+            index = identifier
+            cls._instances[identifier] = obj
+        else:
+            identifier = len(cls._instances) + 1
+            index = identifier % cls._max_instances
+            obj = cls._instances[index]
+        return obj
+
+
+m1 = Multitone()
+m2 = Multitone()
+m3 = Multitone()
+m4 = Multitone()
+
+print(m1 is m3)
+print(m1 is m2)
+print(m2 is m4)
